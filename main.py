@@ -5,8 +5,18 @@ from typing import Optional
 from crawler import get_latest_version
 from api_response import ApiResponse
 from models import fetch_available_models
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+# 设置 CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # 允许所有域名的跨域请求
+    allow_credentials=True,
+    allow_methods=["*"],  # 允许所有方法（GET, POST, PUT, OPTIONS 等）
+    allow_headers=["*"],  # 允许所有头部
+)
 
 
 @app.get("/api/versions", response_model=ApiResponse)
